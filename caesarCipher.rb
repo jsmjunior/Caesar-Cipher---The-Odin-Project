@@ -1,41 +1,54 @@
 
-
-def caesar_cipher (enter_string, number)
-    temp_cipher = []
-    final_cipher = []
-    alphabet = ("a".."z").to_a
-    iteration = 1
-    enter_string.each_char do |letter|
-        iteration = iteration + 1
-        if letter == " "
-            temp_cipher.push(" ")
-        elsif alphabet.include?(letter)
-            temp_cipher.push(alphabet.index(letter).to_s)
-        else
-            temp_cipher.push("*")
-            temp_cipher.push(alphabet.index(letter.downcase).to_s)
-        end
+# test if the char is upcase or downcase
+def test_char(char)
+    if(char == char.upcase)
+        return true
+    else
+        return false
     end
-    next_upcase = false
-    temp_cipher.each() do |char|
+end
+            
+    # main function to return the caeser cipher
+def caesar_cipher(toCodify, keyCodify)
+    codify_array = toCodify.split("")
+    array_for_cipher = []
+    codify_array.map do |char|
         if char == " "
-            final_cipher.push(" ")
-        elsif char == "*"
-            next_upcase = true
-
-        elsif next_upcase.equal?(true)
-            next_upcase = false
-            final_cipher.push(alphabet[char.to_i + number].upcase)
+              array_for_cipher.push(" ")
         else
-           final_cipher.push(alphabet[char.to_i + number])
+        array_for_cipher.push(turn_char_cipher(char, keyCodify) )
         end
-    
     end
-    return final_cipher.join
+    array_for_cipher.join
+end
+
+#turn each char at cipher 
+def turn_char_cipher(char, keyNumber)
+    
+    alphabet = ("a".."z").to_a
+    returned_char = ""
+    temp_num = ""
+    
+    # call the test to se if was upcase (true) or downcase(false)
+    if test_char(char) 
+        char = char.downcase
+        temp_num = alphabet.index(char).to_s
+        temp_num = temp_num.to_i + keyNumber.to_i
+        returned_char = alphabet[temp_num].upcase
+
+
+    else
+        
+        temp_num = alphabet.index(char).to_s
+        temp_num = temp_num.to_i + keyNumber.to_i
+        returned_char = alphabet[temp_num]
+    end
+
+    return returned_char
+
+
 end
 
 
-
-
-
+# print on the terminal the caeser cipher
 puts caesar_cipher("This is A StRing", 5)
