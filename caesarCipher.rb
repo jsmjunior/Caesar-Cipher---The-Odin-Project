@@ -7,14 +7,22 @@ def test_char(char)
         return false
     end
 end
-            
+
+def test_if_char(char)
+alphabet = ("a".."z").to_a
+    return !alphabet.index(char.downcase)
+
+end
+ 
+
+
     # main function to return the caeser cipher
 def caesar_cipher(toCodify, keyCodify)
     codify_array = toCodify.split("")
     array_for_cipher = []
     codify_array.map do |char|
-        if char == " "
-              array_for_cipher.push(" ")
+        if char == " " or test_if_char(char) 
+              array_for_cipher.push(char)
         else
         array_for_cipher.push(turn_char_cipher(char, keyCodify) )
         end
@@ -51,4 +59,4 @@ end
 
 
 # print on the terminal the caeser cipher
-puts caesar_cipher("This is A StRing", 5)
+puts caesar_cipher("This is A? StRing!", 5)
